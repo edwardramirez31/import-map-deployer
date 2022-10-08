@@ -2,11 +2,20 @@
 
 This is a project developed by Single Spa Team and adapted to Snapify needs. Follow the next steps to start running this:
 
+- Run `./setup.sh` in order to change the bucket name, import map file name and urlSafeList at `config.json` file and also the AWS Bucket ARN at `serverless.yml`
+
+> The `urlSafeList` array will contain the url prefix of your micro frontend (one for each environment), example, your CloudFront distribution `https://t9nei6k2dlub2c.cloudfront.net/`
+
+- Otherwise, you can setup everything manually:
+
 1. Change `config.json` fields, such as your AWS region, S3 bucket name according to the environment and `urlSafeList`
 
 ```json
 {
-  "urlSafeList": ["https://${MICRO_FRONTEND_URL_PREFIX}/"],
+  "urlSafeList": [
+    "https://${MICRO_FRONTEND_URL_PREFIX_PROD_ENV}/",
+    "https://${MICRO_FRONTEND_URL_PREFIX_DEV_ENV}/"
+  ],
   "manifestFormat": "importmap",
   "region": "us-east-1",
   "locations": {
@@ -16,13 +25,14 @@ This is a project developed by Single Spa Team and adapted to Snapify needs. Fol
 }
 ```
 
-2. Run `serverless deploy` command passing the username and password that you will use to authenticate at the import map deployer application
+> You can have as many `locations` as you want
+## Deploy to AWS
+
+Run `serverless deploy` command passing the username and password that you will use to authenticate at the import map deployer application
 
 ```
 serverless deploy --verbose --username {YOUR_USERNAME} --password {YOUR_PASSWORD}
 ```
-
-> `urlSafeList` will contain the url prefix of your micro frontend, example, your CloudFront distribution `https://t9nei6k2dlub2c.cloudfront.net/`
 
 # Import-Map-Deployer docs
 

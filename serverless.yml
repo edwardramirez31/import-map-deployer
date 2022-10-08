@@ -22,7 +22,6 @@ provider:
             - "s3:PutObject"
             - "s3:ListBucket"
           Resource:
-            - "arn:aws:s3:::snapify-app/import-map.json"
 
 functions:
   app:

@@ -1,9 +1,9 @@
 {
-  "urlSafeList": ["https://db8kbjrv5qbv8.cloudfront.net/"],
+  "urlSafeList": [],
   "manifestFormat": "importmap",
   "region": "us-east-1",
   "locations": {
-    "prod": "s3://snapify-app/import-map.json",
-    "test": "s3:/snapify-app-dev/import-map.json"
+    "prod": "s3://bucket/import-map.json",
+    "dev": "s3:/bucket-dev/import-map.json"
   }
 }
