@@ -1,0 +1,36 @@
+service: snapify
+frameworkVersion: ">=2.35.0"
+
+provider:
+  stage: prod
+  name: aws
+  runtime: nodejs14.x
+  timeout: 30
+  lambdaHashingVersion: "20201221"
+  region: us-east-1
+  environment:
+    IMD_USERNAME: ${opt:username}
+    IMD_PASSWORD: ${opt:password}
+  httpApi:
+    cors: true
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - "s3:GetObject"
+            - "s3:PutObject"
+            - "s3:ListBucket"
+          Resource:
+            - "arn:aws:s3:::snapify-app/import-map.json"
+
+functions:
+  app:
+    handler: src/web-server.handler
+    events:
+      - httpApi:
+          path: /
+          method: ANY
+      - httpApi:
+          path: /{proxy+}
+          method: ANY
